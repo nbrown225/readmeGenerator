@@ -47,16 +47,16 @@ const questions = [
          default: false
     },
     {
+        type: 'input',
+        name: 'usage',
+        message: 'INCLUDE USAGE? (press enter to skip)', 
+        default: false
+    },
+    {
         type: 'checkbox',
         name: 'languages', 
         message: 'What did you build this project with? (Check all that apply)',
         choices: [' JavaScript', ' HTML', ' CSS', ' ES6', ' jQuery', ' Bootstrap', ' Node']
-    },
-    {
-         type: 'input',
-         name: 'usage',
-         message: 'INCLUDE USAGE? (press enter to skip)', 
-         default: false
     },
     {
         type: 'checkbox',

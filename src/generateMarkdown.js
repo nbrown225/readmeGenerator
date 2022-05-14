@@ -11,8 +11,8 @@ function generateMarkdown(data) {
   ## Table of Contents
   - [Description](#description)
     - [Installation](#install)
-    - [Languages](#languages)
     - [Usage](#usage)
+    - [Languages](#languages)
     - [Licensing](#license)
     - [Tests](#tests)
   - [Questions](#questions)
@@ -24,10 +24,10 @@ function generateMarkdown(data) {
     ![screenshot](${data.addImg})
     ### Installation
     - ${data.install}
-    ### Languages
-    - ${data.languages}
     ### Usage
     - ${data.usage}
+    ### Languages
+    - ${data.languages}
     ### Licensing
     ${data.license}
     [![license](https://img.shields.io/badge/license-${data.license}-blue)](https://shields.io)
