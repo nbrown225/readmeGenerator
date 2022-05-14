@@ -1,95 +1,112 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generatePage = require('./src/generateMarkdown');
+const generatePage = require('./src/generateMarkdown.js');
+const generateMarkdown = require('./src/generateMarkdown.js');
 
 
-const promptUser = () => {
-    return inquirer.prompt([
-        // TODO: Create an array of questions for user input
-        {
-            type: 'input', 
-            name: 'title', 
-            message: 'WHAT IS THE NAME OF YOUR PROJECT? *REQUIRED*',
-            validate: titleInput => {
-                if (titleInput) {
-                    return true;
-                } else {
-                    console.log('PROJECT TITLE IS REQUIRED!');
-                    return false;
-                }
-            }
-        }, 
-        {
-            type: 'input', 
-            name: 'description', 
-            message: 'PLEASE DESCRIBE YOUR PROJECT *REQUIRED*', 
-            validate: descriptionInput => {
-                if (descriptionInput) {
-                    return true;
-                } else {
-                    console.log('PROJECT DESCRIPTION IS REQUIRED!');
-                    return false;
-                }
-            }
-        }, 
-        {
-            type: 'input', 
-            name: 'userStory', 
-            message: 'INCLUDE USER STORY?',
-        },
-        {
-            type: 'checkbox',
-            name: 'languages', 
-            message: 'What did you build this project with? (Check all that apply)',
-            choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
-        },
-        {
-            type: 'confirm',
-            name: 'confirmInstructions',
-            message: 'DO YOU WANT TO INCLUDE INSTRUCTIONS?', 
-            default: false
-        },
-        {
-            type: 'input',
-            name: 'instructions',
-            message: 'PROVIDE INSTRUCTIONS ON USE:', 
-            when: ({ confirmInstructions }) => {
-              if (confirmInstructions) {
+const questions = [
+    // TODO: Create an array of questions for user input
+    {
+        type: 'input', 
+        name: 'title', 
+        message: 'WHAT IS THE NAME OF YOUR PROJECT? *REQUIRED*',
+        validate: titleInput => {
+            if (titleInput) {
                 return true;
-              } else {
+            } else {
+                console.log('PROJECT TITLE IS REQUIRED!');
                 return false;
-              }
             }
-        },
-        {
-            type: 'input', 
-            name: 'walkthru-link', 
-            message: 'WHAT IS THE LINK TO THE WALK THROUGH VIDEO? *REQUIRED*',
-            validate: nameInput => {
-              if (nameInput) {
+        }
+    }, 
+    // PROJECT DESCRIPTION/INFORMATION
+    {
+        type: 'input', 
+        name: 'description', 
+        message: 'PLEASE DESCRIBE YOUR PROJECT *REQUIRED*', 
+        validate: descriptionInput => {
+            if (descriptionInput) {
                 return true;
-              } else{
-                console.log('WALK THROUGH LINK IS REQUIRED!');
+            } else {
+                console.log('PROJECT DESCRIPTION IS REQUIRED!');
                 return false;
-              }
             }
-          },
-        {
-            type: 'input', 
-            name: 'github', 
-            message: 'INCLUDE YOUR GITHUB? *REQUIRED*',
-            validate: githubInput => {
-              if (githubInput) {
+        }
+    }, 
+     {
+         type: 'input', 
+         name: 'install', 
+         message: 'INCLUDE HOW TO INSTALL?',
+     },
+    {
+        type: 'checkbox',
+        name: 'languages', 
+        message: 'What did you build this project with? (Check all that apply)',
+        choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
+    },
+    {
+         type: 'input',
+         name: 'usage',
+         message: 'INCLUDE USAGE?', 
+         default: false
+    },
+    {
+        type: 'checkbox',
+        name: 'license', 
+        message: 'PLEASE CHOOSE A LICENSE',
+        choices: ['Apache', 'Common-Development-and Distribution','GNU-General-Public','MIT', 'Mozilla-Public','None'],
+        validate: licenseInput => {
+            if (licenseInput) {
                 return true;
-              } else{
-                console.log('GITHUB IS REQUIRED');
+            } else {
+                console.log('YOU MUST CHOOSE ONE');
                 return false;
-              }
             }
+        }
+    },
+    {
+        type: 'input',
+        name: 'contribute',
+        message: 'WOULD YOU LIKE TO INCLUDE CONTRIBUTORS?',
+        default: false
+    },
+    {
+        type: 'input', 
+        name: 'tests', 
+        message: 'WOULD YOU LIKE TO INCLUDE TESTS?',
+        default: false
+    },
+    // QUESTIONS SECTION
+    {
+        type: 'input', 
+        name: 'github', 
+        message: 'INCLUDE YOUR GITHUB? *REQUIRED*',
+        validate: githubInput => {
+          if (githubInput) {
+            return true;
+          } else{
+            console.log('GITHUB IS REQUIRED');
+            return false;
           }
-    ]);
-};
+        }
+    },
+    {
+        type: 'input', 
+        name: 'email', 
+        message: 'PLEASE INCLUDE YOUR EMAIL *REQUIRED*',
+        validate: emailInput => {
+          if (emailInput) {
+            return true;
+          } else{
+            console.log('EMAIL IS REQUIRED');
+            return false;
+          }
+        }
+      }
+]
+       
+
 
 
 
@@ -97,17 +114,17 @@ const promptUser = () => {
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) => {
         if (err)
-        throw err;
-        console.log('SUCCESS. PLEASE CHECK THE NEWLY CREATED README!!');
+            throw err;
+                console.log("YOU'RE ALL SET! CHECK THE NEWLY CREATED README!!")
     });
 };
 
 // TODO: Create a function to initialize app
 function init() {
-    inquirer.prompt(promptUser)
-    .then(function (userInput) {
-        console.log(userInput)
-        fs.writeFile('README.md', generatePage(userInput));
+   inquirer.prompt(questions)
+   .then(function (userInput) {
+       console.log(userInput);
+        writeToFile('README.md', generateMarkdown(userInput));
     });
 };
 
