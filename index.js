@@ -1,18 +1,21 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
+const fs = require('fs');
+const generatePage = require('./src/generateMarkdown');
+
 
 const promptUser = () => {
     return inquirer.prompt([
         // TODO: Create an array of questions for user input
         {
             type: 'input', 
-            name: 'name', 
+            name: 'title', 
             message: 'WHAT IS THE NAME OF YOUR PROJECT? *REQUIRED*',
-            validate: nameInput => {
-                if (nameInput) {
+            validate: titleInput => {
+                if (titleInput) {
                     return true;
                 } else {
-                    console.log('PROJECT NAME IS REQUIRED!');
+                    console.log('PROJECT TITLE IS REQUIRED!');
                     return false;
                 }
             }
@@ -61,19 +64,6 @@ const promptUser = () => {
         },
         {
             type: 'input', 
-            name: 'github', 
-            message: 'INCLUDE YOUR GITHUB? *REQUIRED*',
-            validate: githubInput => {
-              if (githubInput) {
-                return true;
-              } else{
-                console.log('GITHUB IS REQUIRED');
-                return false;
-              }
-            }
-          },
-          {
-            type: 'input', 
             name: 'walkthru-link', 
             message: 'WHAT IS THE LINK TO THE WALK THROUGH VIDEO? *REQUIRED*',
             validate: nameInput => {
@@ -84,17 +74,42 @@ const promptUser = () => {
                 return false;
               }
             }
+          },
+        {
+            type: 'input', 
+            name: 'github', 
+            message: 'INCLUDE YOUR GITHUB? *REQUIRED*',
+            validate: githubInput => {
+              if (githubInput) {
+                return true;
+              } else{
+                console.log('GITHUB IS REQUIRED');
+                return false;
+              }
+            }
           }
     ]);
 };
-promptUser()
+
 
 
 // TODO: Create a function to write README file
-//function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => {
+        if (err)
+        throw err;
+        console.log('SUCCESS. PLEASE CHECK THE NEWLY CREATED README!!');
+    });
+};
 
 // TODO: Create a function to initialize app
-//function init() {}
+function init() {
+    inquirer.prompt(promptUser)
+    .then(function (userInput) {
+        console.log(userInput)
+        fs.writeFile('README.md', generatePage(userInput));
+    });
+};
 
 // Function call to initialize app
-//init();
+init();
