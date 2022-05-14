@@ -33,22 +33,29 @@ const questions = [
                 return false;
             }
         }
-    }, 
-     {
+    },
+    {
+        type: 'input',
+        name: 'addImg', 
+        message: 'WOULD YOU LIKE TO INCLUDE AN IMAGE? (press enter to skip)',
+        default: false
+    },
+    {
          type: 'input', 
          name: 'install', 
-         message: 'INCLUDE HOW TO INSTALL?',
-     },
+         message: 'INCLUDE HOW TO INSTALL? (press enter to skip)',
+         default: false
+    },
     {
         type: 'checkbox',
         name: 'languages', 
         message: 'What did you build this project with? (Check all that apply)',
-        choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
+        choices: [' JavaScript', ' HTML', ' CSS', ' ES6', ' jQuery', ' Bootstrap', ' Node']
     },
     {
          type: 'input',
          name: 'usage',
-         message: 'INCLUDE USAGE?', 
+         message: 'INCLUDE USAGE? (press enter to skip)', 
          default: false
     },
     {
@@ -68,20 +75,21 @@ const questions = [
     {
         type: 'input',
         name: 'contribute',
-        message: 'WOULD YOU LIKE TO INCLUDE CONTRIBUTORS?',
+        message: 'WOULD YOU LIKE TO ADD CONTRIBUTORS? (press enter to skip)',
         default: false
     },
     {
-        type: 'input', 
-        name: 'tests', 
-        message: 'WOULD YOU LIKE TO INCLUDE TESTS?',
+        type: 'input',
+        name: 'tests',
+        message: 'WOULD YOU LIKE TO ADD TEST? (press enter to skip)',
         default: false
     },
+
     // QUESTIONS SECTION
     {
         type: 'input', 
         name: 'github', 
-        message: 'INCLUDE YOUR GITHUB? *REQUIRED*',
+        message: 'INCLUDE YOUR GITHUB *REQUIRED*',
         validate: githubInput => {
           if (githubInput) {
             return true;
@@ -106,10 +114,6 @@ const questions = [
       }
 ]
        
-
-
-
-
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) => {

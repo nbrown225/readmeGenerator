@@ -10,39 +10,31 @@ function generateMarkdown(data) {
     
   ## Table of Contents
   - [Description](#description)
-  - [User Story](#userStory)
-  - [Languages](#languages)
-  - [Usage](#usage)
-  - [Licensing](#license)
-  - [Tests](#tests)
+    - [Installation](#install)
+    - [Languages](#languages)
+    - [Usage](#usage)
+    - [Licensing](#license)
+    - [Tests](#tests)
   - [Questions](#questions)
     - [Github Link](#github)
     - [Email](#email)
-
     ## Description:
-    ${data.description}
-    
-    ### User Story
-    ${data.userStory}
+    ${data.description} 
+    ### Image
+    ![screenshot](${data.addImg})
     ### Installation
-    ${data.install}
+    - ${data.install}
     ### Languages
-    - ${data.languages[0]}
-    - ${data.languages[1]}
-    - ${data.languages[2]}
-    - ${data.languages[3]}
-    - ${data.languages[4]}
-    - ${data.languages[5]}
-    - ${data.languages[6]}
+    - ${data.languages}
     ### Usage
-    ${data.usage}
+    - ${data.usage}
     ### Licensing
     ${data.license}
     [![license](https://img.shields.io/badge/license-${data.license}-blue)](https://shields.io)
     ### Contributors
-    ${data.contribute}
+    - ${data.contribute}
     ### Tests
-    ${data.tests}
+    - ${data.tests}
     ## Questions?
     ### Github Link
     - ${data.github}
